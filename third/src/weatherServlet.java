@@ -1,3 +1,6 @@
+import cm4108.lab03.weather.model.WeatherDatabase;
+import cm4108.lab03.weather.model.WeatherInfo;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,9 +13,19 @@ protected void doPost( HttpServletRequest request , HttpServletResponse response
 }
 
 protected void doGet( HttpServletRequest request , HttpServletResponse response ) throws ServletException, IOException {
-	String place = request.getParameter("place");
+	String place = request.getParameter( "place" );
 
-	response.setContentType( "text/plain" );
-	response.getWriter().print( "Hello World" );
+	response.setContentType( " text/plain" );
+
+	WeatherDatabase wd = new WeatherDatabase();
+
+	WeatherInfo wi = wd.find( place );
+
+	if ( wi == null ) {
+		response.sendError( 403 );
+		return;
+	}
+
+	response.getWriter().println( place + ": " + wi.condition + " " + wi.temperature + wi.unit );
 }
 }
