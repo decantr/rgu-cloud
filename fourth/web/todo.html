@@ -1,78 +1,81 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>Test ToDo Service</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-		<script src="script/todo.js"></script>
-		<link rel="stylesheet" href="css/todo.css">
-	</head>
-	<body>
-		<article id="main">
-			<header>
-				<h1>	Testing Your To-Do Service</h1>
-			</header>
-			<section>
-				<table>
-					<tr>
-						<td colspan="2">URL:
-						<input type="text" id="url" title="The URL of your service. e.g. /todo or /todo/12345. Do not entered any parameter here. Parameters should use the boxes below."></td>
-					</tr>
-					<tr>
-						<td colspan="2">Method:
-							<select id="method" title="Select the HTTP method to use on the request.">
-								<option value="get">GET</option>
-								<option value="post">POST</option>
-								<option value="delete">DELETE</option>
-								<option value="put">PUT</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">Data Type:
-							<select id="datatype" title="Select the data type you expect">
-								<option value="xml">XML</option>
-								<option value="json">JSON</option>
-								<option value="text">Plain Text</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<th>Parameter</th><th>Value</th>
-					</tr>
-					<tr>
-						<td><input type="text" class="param" title="The name of the request parameter. e.g. date"></td>
-						<td><input type="text" class="value" title="The value of the parameter."></td>
-					</tr>
-					<tr>
-						<td><input type="text" class="param" title="The name of the request parameter. e.g. date"></td>
-						<td><input type="text" class="value" title="The value of the parameter."></td>
-					</tr>
-					<tr>
-						<td><input type="text" class="param" title="The name of the request parameter. e.g. date"></td>
-						<td><input type="text" class="value" title="The value of the parameter."></td>
-					</tr>
-					<tr>
-						<td><input type="text" class="param" title="The name of the request parameter. e.g. date"></td>
-						<td><input type="text" class="value" title="The value of the parameter."></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<button id="send" title="Click to send request.">Send Request</button>
-							<button id="reset" title="Click to clear input.">Reset Request</button>
-						</td>
-					</tr>
-				</table>
-			</section>
-			<section>
-				<h1>Response</h1>
-				<section id="response">
-					Format: <span id="format">---</span>
-					<br>
-					<textarea cols="50" rows="10" readonly title="Response from the service."></textarea>
-					<button id="clearResponse" title="Click to clear the response area.">Clear</button>
-				</section>
-			</section>
-		</article>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <title>Test ToDo Service</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="script/todo.js"></script>
+    <link href="css/todo.css" rel="stylesheet">
+</head>
+<body>
+<article id="main">
+    <header>
+        <h1> Testing Your To-Do Service</h1>
+    </header>
+    <section>
+        <table>
+            <tr>
+                <td colspan="2">URL:
+                    <input id="url" title="The URL of your service. e.g. /todo or /todo/12345. Do not entered any parameter here. Parameters should use the boxes below."
+                           type="text">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Method:
+                    <select id="method" title="Select the HTTP method to use on the request.">
+                        <option value="get">GET</option>
+                        <option value="post">POST</option>
+                        <option value="delete">DELETE</option>
+                        <option value="put">PUT</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Data Type:
+                    <select id="datatype" title="Select the data type you expect">
+                        <option value="xml">XML</option>
+                        <option value="json">JSON</option>
+                        <option value="text">Plain Text</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td><input class="param" title="The name of the request parameter. e.g. date" type="text"></td>
+                <td><input class="value" title="The value of the parameter." type="text"></td>
+            </tr>
+            <tr>
+                <td><input class="param" title="The name of the request parameter. e.g. date" type="text"></td>
+                <td><input class="value" title="The value of the parameter." type="text"></td>
+            </tr>
+            <tr>
+                <td><input class="param" title="The name of the request parameter. e.g. date" type="text"></td>
+                <td><input class="value" title="The value of the parameter." type="text"></td>
+            </tr>
+            <tr>
+                <td><input class="param" title="The name of the request parameter. e.g. date" type="text"></td>
+                <td><input class="value" title="The value of the parameter." type="text"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button id="send" title="Click to send request.">Send Request</button>
+                    <button id="reset" title="Click to clear input.">Reset Request</button>
+                </td>
+            </tr>
+        </table>
+    </section>
+    <section>
+        <h1>Response</h1>
+        <section id="response">
+            Format: <span id="format">---</span>
+            <br>
+            <textarea cols="50" readonly rows="10" title="Response from the service."></textarea>
+            <button id="clearResponse" title="Click to clear the response area.">Clear</button>
+        </section>
+    </section>
+</article>
+</body>
 </html>
