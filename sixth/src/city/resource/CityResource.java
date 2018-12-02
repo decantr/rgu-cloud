@@ -1,12 +1,12 @@
-package cm4108.lab06.city.resource;
+package city.resource;
 
 //general Java
 
-import cm4108.aws.util.*;
-import cm4108.lab06.city.model.*;
-import cm4108.lab06.config.*;
+import city.model.City;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import util.Config;
+import util.DynamoDBUtil;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

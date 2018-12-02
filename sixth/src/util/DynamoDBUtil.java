@@ -1,4 +1,6 @@
-package util;//AWS SDK
+package util;
+
+//AWS SDK
 
 import com.amazonaws.client.builder.AwsClientBuilder.*;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -15,9 +17,9 @@ private static DynamoDBMapper mapper = null;    //a reusable DynamoDBMapper
  *
  * @param region The AWS region to connect to. e.g. "eu-west-1".
  *               To connect to a local server, use "local".
+ * @return A DynamoDBMapper object for accessing DynamoDB.
  * @parm endPoint  The URL of the local DynamoDB server. e.g. http://localhost:8000
  * This parameter is only used if region is specified as "local".
- * @return A DynamoDBMapper object for accessing DynamoDB.
  */
 public static DynamoDBMapper getDBMapper( String region , String endPoint ) {
 	if ( DynamoDBUtil.mapper == null )  //no mapper yet

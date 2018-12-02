@@ -1,6 +1,6 @@
 //API keys
-var mapBoxApiKey = "*** Your Mapbox API key ***";
-var openWeatherAPIKey = "*** Your OpenWeatherMap API key here ***";
+var mapBoxApiKey = "pk.eyJ1IjoiZGVjYW50ZXIiLCJhIjoiY2pvejF1dndxMmhkczN2a2ZnbzN4N3ZuZCJ9.GmzH8RHzlfz_APpRuIauWA";
+var openWeatherAPIKey = "4cfa266fa9af1befdf750a15183feab6";
 var baseURL = "api";
 
 //the document ready function
@@ -17,44 +17,48 @@ try {
 // Initialise page.
 //
 function init() {
-	var map = makeMap("map", 1, 0.0, 0.0);	//make map using Leaflet
+	var map = makeMap("map", 1, 0.0, 0.0);	//make map using Leaflet or GoogleMap API
 	var marker = makeMarker(map, 0.0, 0.0);	//make and put marker on map, keeping reference
 
 //make dialog box
-	alert("Add some options to your dialog call so that it does not\n show after creation and disable parent input.");
 	$("#cityDetails").dialog({
-			//options to dialog box as a map
-			// *** Add some options here so that the dialog box
-			// *** is hidden by default, and disable parent when it is opened.
+			modal: true,			//modal dialog to disable parent when dialog is active
+			autoOpen: false,		//set autoOpen to false, hidding dialog after creation
+			title: "Add City",	//set title of dialog box
 			minWidth: 500,
 			minHeight: 400
 		}
-	);	//end call to dialog
+	);
 
 //set click handler of Add City button
 	$("#addCity").click(function () {
-			//*** Add JS code to clear city name input box. ***
-			alert("Use jQuery to clear city name input box.");
+			$("#cityName").val("");					//clear city name text input
 			$("#cityDetails").dialog("open", true);	//open dialog box
 		}
 	);
 
 //set click handler of Cancel button in Add City dialog
-// *** Add JS code to register a click handler for the Cancel button. ***
-// *** Close the dialog when the Cancel button is clicked.
-	alert("Register an on-click handler for the Cancel button\n to close the dialog box when the Cancel button is clicked.");
+	$("#cancelCity").click(function () {
+			$("#cityDetails").dialog("close");
+		}
+	);
 
 //set click handler of Save City button in Add City dialog
 	$("#saveCity").click(function () {
 			saveCity(marker);	//save city to web service
-
-			//*** Add code to close dialog box after city is saved. ***
-			alert("Add JS to close dialog box after city is saved.");
+			$("#cityDetails").dialog("close");
 		}
 	);
 
 //set click handler of Delete Selected button
-// *** If you want to, handle the Delete Selected button to delete a selected city.
+	$("#deleteCity").click(function () {
+			$("#cities .selected").each(function () {
+					deleteCity($(this).attr("id"));
+					$(this).remove();
+				}
+			);
+		}
+	);
 
 	populateCities();	//populate list of known cities
 }
@@ -66,9 +70,7 @@ function saveCity(marker) {
 	var longitude = marker.getLatLng().lng;	//get longitude from position
 	var latitude = marker.getLatLng().lat;	//get latitude from position
 
-// *** Modify code to get city name from input text box. ***
-	alert("Modify JS to get city name from input text box.");
-	var name = "Somewhere";			//*** Modify this. ***
+	var name = $("#cityName").val();	//get city name input text box value
 
 	var url = baseURL + "/city";					//URL of web service
 	var data = {
@@ -78,7 +80,7 @@ function saveCity(marker) {
 	};
 
 //use jQuery shorthand Ajax POST function
-	$.post(url,				//URL of service
+	$.post(url,			//URL of service
 		data,			//parameters of request
 		function ()		//successful callback function
 		{
@@ -97,29 +99,22 @@ function populateCities() {
 	$.getJSON(url,				//URL of service
 		function (cities)		//successful callback function
 		{
-			//*** Add JS code to remove all cities in the list first. ***
-			alert("Add JS code to remove all old cities from the list first.");
-
+			$("#cities").empty();		//find city list and remove its children
 			for (var i in cities) {
 				var city = cities[i];		//get 1 city from the JSON list
-				// *** Modify JS to get city ID from JSON data.
-				// *** Also get city name.
-				alert("Modify code to get city ID and name from JSON data.");
-				var id = "";		//*** Modify this. ***
-				var name = "";	//*** Modify this. ***
-
-				// *** Modify JS code to compose the HTML of a list item using the city ID and name.
-				alert("Modify code to compose HTML of a list item using city ID & name.");
-				var htmlCode = "<li>Modify me!</li>";		//*** Modify this. ***
-
+				var id = city["id"];		//get city ID from JSON data
+				var name = city["name"];	//get city name from JSON data
+				//compose HTML of a list item using the city ID and name.
+				var htmlCode = "<li id='" + id + "'>" + name + "</li>";
 				$("#cities").append(htmlCode);	//add a child to the city list
 			}
 
 			//look for all list items (i.e. cities), set their click handler
 			$("#cities li").click(function () {
-					// *** Add JS code to call the cityClicked(...) function.
-					// *** The parameter should the ID of the city clicked.
-					alert("Add JS code to call the cityClicked(...) function with the city ID.");
+					// Call the cityClicked(...) function.
+					// The parameter is the ID of the city clicked.
+					// See how we get the ID from the located li element/tag.
+					cityClicked($(this).attr("id"));
 				} //end click handler function
 			); //end click call
 		} //end Ajax callback function
@@ -133,9 +128,9 @@ function populateCities() {
 function cityClicked(id) {
 	$("#cities li").removeClass("selected"); //remove all list items from the class "selected, thus clearing previous selection
 
-// *** Add JS code to find the selected city (i.e. list item) and add the class "selected" to it.
-// *** This will highlight it according to the "selected" class.
-	alert("Use jQuery add class 'selected' to the selected city list item.");
+// Find the selected city (i.e. list item) and add the class "selected" to it.
+// This will highlight it according to the "selected" class.
+	$("#" + id).addClass("selected");
 
 //retrieve city coordinates from city service
 	var url = baseURL + "/city/" + id;		//URL of service, notice that ID is part of URL path
@@ -146,37 +141,48 @@ function cityClicked(id) {
 		{
 			longitude = jsonData["longitude"];			//get longitude from JSON data
 			latitude = jsonData["latitude"];			//get latitude from JSON data
-
 			// *** Add JS code to update h1 on page to show city name
-			alert("Add JS to show city name on page.\nThere is a h1 inside the section of weather details.");
-
+			//alert("Add JS to show city name on page.\nThere is a h1 inside the section of weather details.");
+			$("#cityWeather h1").html(jsonData["name"] + " Weather");
 			showCityWeather(longitude, latitude);
 		}
 	);
 } //end function
 
-//
-// show a city's weather given its coordinates
-//
+function deleteCity(id) {
+	var url = baseURL + "/city/" + id;				//URL pattern of delete service
+	var settings = {type: "DELETE"};	//options to the $.ajax(...) function call
+
+	$.ajax(url, settings);
+} //end function
+
 function showCityWeather(longitude, latitude) {
 	var url = "http://api.openweathermap.org/data/2.5/weather";		//URL of OpenWeatherMap service
 
-// *** Compose request parameters as a map
-	alert("Modify code to supply parameters to OpenWeatherMap service.");
-
-	var data = {	//
-		// *** Modify code to add required parameters here. ***
-		//
-		"cnt": 1,			//return only 1 entry
-		"units": "metric",	//use metric unit
-		"appid": "***Your OpenWeatherMap API key here***"	//***put your API key here
-		//plus other parameters required
+// Compose request parameters as a map
+// The following parameters (in the request) are defined in the OpenWeatherMap API.
+	var data = {
+		"lat": latitude,		//latitude
+		"lon": longitude,		//longitude
+		"cnt": 1,				//data count to return
+		"units": "metric",		//unit of result
+		"appid": openWeatherAPIKey
 	};
 
 //
-// *** Add JS code to retrieve weather data from OpenWeatherMap web service.
-// *** When the JSON data come back, update information on the web page.
-	alert("Add JS code to retrieve weather data from OpenWeatherMap and update web page.");
+// Retrieve weather data from OpenWeatherMap web service.
+// When the JSON data come back, update information on the web page.
+//
+	$.getJSON(url,
+		data,
+		function (reply) {
+			var weather = reply["weather"][0]["main"];
+			var icon = reply["weather"][0]["icon"];
+			var temp = reply["main"]["temp"];
+			$("#cityWeather img").attr("src", "http://openweathermap.org/img/w/" + icon + ".png");
+			$("#cityWeather span").html(temp + "C");
+		} //end callback function
+	); //end Ajax call
 } //end function
 
 //
@@ -205,5 +211,5 @@ function makeMarker(map, longitude, latitude) {
 	var location = L.latLng({lon: longitude, lat: latitude});	//create marker at given position
 	var marker = L.marker(location, {draggable: true});			//make a draggable marker
 	marker.addTo(map);										//add marker to map
-	return marker;	//return marker object
+	return marker;				//return marker object
 } //end function
