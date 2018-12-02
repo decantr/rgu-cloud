@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="cm4108-lab03">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/web/WEB-INF/lib/cm4108-lab03.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
