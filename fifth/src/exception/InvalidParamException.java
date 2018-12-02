@@ -1,7 +1,7 @@
 package exception;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
 public class InvalidParamException extends WebApplicationException {
 public InvalidParamException( String message ) {

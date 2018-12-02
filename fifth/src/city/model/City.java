@@ -1,5 +1,9 @@
 package city.model;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+
 /**
  * This class models a city/place.
  * <p>
@@ -9,6 +13,7 @@ package city.model;
  * 2. Annotate the setter/getter of the city code as the primary hash key.
  * 3. Annotate other attributes' setters/getters as DynamoDB attributes.
  */
+@DynamoDBTable( tableName = "cm4108-lab05-city" )
 public class City {
 /**
  * The unique code that identifies a city.
@@ -54,6 +59,7 @@ public City( String code , String name , double lon , double lat ) {
 	this.setLatitude( lat );
 } //end method
 
+@DynamoDBHashKey( attributeName = "code" )
 public String getCode() {
 	return this.code;
 } //end method
@@ -62,6 +68,7 @@ public void setCode( String code ) {
 	this.code = code;
 } //end method
 
+@DynamoDBAttribute( attributeName = "name" )
 public String getName() {
 	return this.name;
 } //end method
@@ -70,6 +77,7 @@ public void setName( String name ) {
 	this.name = name;
 } //end method
 
+@DynamoDBAttribute( attributeName = "longitude" )
 public double getLongitude() {
 	return this.longitude;
 } //end method
@@ -78,6 +86,7 @@ public void setLongitude( double longitude ) {
 	this.longitude = longitude;
 } //end method
 
+@DynamoDBAttribute( attributeName = "latitude" )
 public double getLatitude() {
 	return this.latitude;
 } //end method

@@ -1,11 +1,12 @@
-package test.resource;
+package resource;
 
 //JAX-RS
 
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 //AWS SDK
 

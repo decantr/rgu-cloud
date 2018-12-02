@@ -2,10 +2,10 @@ package util;
 
 //AWS SDK
 
-import com.amazonaws.client.builder.*;
 import com.amazonaws.client.builder.AwsClientBuilder.*;
-import com.amazonaws.services.dynamodbv2.*;
-import com.amazonaws.services.dynamodbv2.datamodeling.*;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 public class DynamoDBUtil {
 private static AmazonDynamoDB dbClient = null;    //a reuable DynamoDBClient
