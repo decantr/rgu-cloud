@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cities with Real Weather Information</title>
+    <!-- *** Load the jQuery and jQueryUI libraries here. *** -->
+    <!-- *** Load jQueryUI default CSS from Google CDN. *** -->
+    <!-- *** Load jQueryUI default CSS from Google CDN. *** -->
+
+    <!--  Load the LeafletJS API. -->
+    <link crossorigin="" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+          integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+          rel="stylesheet"/>
+    <script crossorigin=""
+            integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+            src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+
+    <!-- Load local CSS and JavaScript. -->
+    <link href="css/index.css" rel="stylesheet">
+    <script src="script/index.js"></script>
+</head>
+<body>
+<!-- The list of known cities -->
+<section>
+    <h1>List of Cities</h1>
+    <!-- Initially the list is empty. We will construct it using Ajax. -->
+    <ul id="cities">
+    </ul>
+
+    <!-- Buttons for adding and deleting a city. -->
+    <button id="addCity">Add City</button>
+    <button id="deleteCity">Delete Selected</button>
+</section>
+
+<!-- Section for entering details of a new city. -->
+<section id="cityDetails">
+    <section>
+        City Name:
+        <input id="cityName" type="text">
+    </section>
+
+    <!-- Section for showing Google Map. Empty for the moment. It will be populated by JS. -->
+    <section id="map">
+    </section>
+
+    <!-- Buttons for saving/cancelling. -->
+    <section>
+        <button id="saveCity">Save City</button>
+        <button id="cancelCity">Cancel</button>
+    </section>
+</section>
+
+<!--  Section showing weather of the selected city. -->
+<section id="cityWeather">
+    <!-- Name of city. Empty for the moment. Will be populated by JS. -->
+    <h1></h1>
+
+    <!-- Weather icon image. Will be populated by JS. -->
+    <img>
+    Temperature:
+
+    <!-- Temperature span. Will be populated by JS. -->
+    <span>---</span>
+</section>
+</body>
+</html>
