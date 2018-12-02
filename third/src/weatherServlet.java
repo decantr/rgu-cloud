@@ -10,6 +10,9 @@ protected void doPost( HttpServletRequest request , HttpServletResponse response
 }
 
 protected void doGet( HttpServletRequest request , HttpServletResponse response ) throws ServletException, IOException {
+	String place = request.getParameter("place");
 
+	response.setContentType( "text/plain" );
+	response.getWriter().print( "Hello World" );
 }
 }
